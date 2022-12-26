@@ -1,7 +1,7 @@
 from typing import List
 
 # part 1
-class Solution1:
+class Solution:
     def isPalindrome(self, w):
         return w == w[::-1]
 
@@ -14,18 +14,7 @@ class Solution1:
                     result.append((i, j))
 
         return result
-
-solution = Solution1()
-pairs = solution.palindromePairs(["abcd", "dcba", "lls", "s", "sssll"])
-print(pairs)
-
-
-# part 2
-class Solution2:
-    def is_palindrome(self, word):
-        return word == word[::-1]
-
-    def palindromePairs(self, words):
+    def palindromePairs2(self, words):
         d = {}
 
         for i, w in enumerate(words):
@@ -43,15 +32,21 @@ class Solution2:
                 print(f'suffix="{suffix}", suffix_r="{suffix_r}"')
 
 
-                if self.is_palindrome(prefix) and suffix_r in d:
+                if self.isPalindrome(prefix) and suffix_r in d:
                     if i != d[suffix_r]:
                         print("A********: ok")
                         result.append([d[suffix_r], i])
 
-                if self.is_palindrome(suffix) and suffix and prefix_r in d:
+                if self.isPalindrome(suffix) and suffix and prefix_r in d:
                     if i != d[prefix_r]:
                         print("B*******: ok")
                         result.append([i, d[prefix_r]])
                 print("---------------------------")
 
         return result
+solution = Solution()
+pairs = solution.palindromePairs(["abcd", "dcba", "lls", "s", "sssll"])
+print(pairs)
+pairs = solution.palindromePairs2(["abcd", "dcba", "lls", "s", "sssll"])
+print(pairs)
+
