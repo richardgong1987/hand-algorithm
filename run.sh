@@ -1,1 +1,1 @@
-nodemon --exec "python3" '899. Orderly Queue.py'
+nodemon --exec "python3" 'test.py'

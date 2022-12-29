@@ -5,12 +5,8 @@ class Solution:
         if k==1:
             small_str=s
             for i in range(1,len(s)):
-                tmp = s[i:]+s[:i]
-                if tmp < small_str:
-                    small_str=tmp
-
+                small_str = min(s[i:]+s[:i], small_str)
             return small_str
 
 
         return ''.join(sorted(list_str))
-
