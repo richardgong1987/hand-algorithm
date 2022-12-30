@@ -1,4 +1,4 @@
-import typing
+from  typing import Optional
 
 from utils.ListNode import ListNode, createListNode
 
@@ -16,7 +16,7 @@ class Solution:
 
         return pre
 
-    def reorderList(self, head: typing.Optional[ListNode]) -> None:
+    def reorderList(self, head: Optional[ListNode]) -> None:
         """
         Do not return anything, modify head in-place instead.
         """
