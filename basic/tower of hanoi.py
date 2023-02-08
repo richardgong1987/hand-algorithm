@@ -7,3 +7,5 @@ def hanoi(n, a='a',b='b',c='c'):
 
 
 hanoi(3)
+
+# \alpha
