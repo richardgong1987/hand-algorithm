@@ -4,16 +4,15 @@ from typing import List
 
 class Solution:
     def minInterval(self, intervals: List[List[int]], queries: List[int]) -> List[int]:
-        intervals = sorted(intervals)[::-1]  # sort intervals based on end times
+        intervals = sorted(intervals)  # sort intervals based on end times
         min_heap = []
         res = {}  # dictionary to store the result for each query
         for q in sorted(queries):
 
             # add intervals that include q to the heap
-            while intervals and intervals[-1][0] <= q:
-                i, j = intervals.pop()
-                if j >= q:
-                    heapq.heappush(min_heap, [j - i + 1, j])
+            while intervals and intervals[0][0] <= q:
+                i, j = intervals.pop(0)
+                heapq.heappush(min_heap, [j - i + 1, j])
 
             # remove intervals that don't include q from the heap
             while min_heap and min_heap[0][1] < q:
