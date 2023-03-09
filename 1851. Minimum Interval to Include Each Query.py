@@ -1,6 +1,25 @@
 import heapq
 from typing import List
 
+"""
+Explanation:
+
+Sort queries and intervals.
+
+Iterate queries from small to big,
+
+and find out all open intervals [l, r],
+
+and we add them to a priority queue.
+
+Also, we need to remove all closed interval from the queue.
+
+In the priority, we use
+[interval size, interval end] = [r-l+1, r] as the key.
+
+The head of the queue is the smallest interval we want to return for each query.
+
+"""
 
 class Solution:
     def minInterval(self, intervals: List[List[int]], queries: List[int]) -> List[int]:
@@ -8,7 +27,6 @@ class Solution:
         min_heap = []
         res = {}  # dictionary to store the result for each query
         for q in sorted(queries):
-
             # add intervals that include q to the heap
             while intervals and intervals[0][0] <= q:
                 i, j = intervals.pop(0)
@@ -21,9 +39,6 @@ class Solution:
             # get the minimum size interval that includes q
             res[q] = min_heap[0][0] if min_heap else -1
 
+
         # return the result for all queries
         return [res[q] for q in queries]
-
-
-solution = Solution()
-print(solution.minInterval([[2, 3], [2, 5], [1, 8], [20, 25]], [2, 19, 5, 22]))
