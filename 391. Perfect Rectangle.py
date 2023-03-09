@@ -28,6 +28,6 @@ class Solution:
         # Check that all vertices except for corners appear an even number of times
         corners = {(x1, y1), (x1, y2), (x2, y1), (x2, y2)}
         for point in points:
-            if point not in corners and list(points).count(point) % 2 != 0:
+            if point not in corners:
                 return False
         return True
