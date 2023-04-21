@@ -1,9 +1,12 @@
 from typing import List
 
 """
-Given a string array words, return an array of all characters that show up in all strings within the words (including duplicates). You may return the answer in any order.
+Given a string array words, 
+return an array of all characters that show up in all strings 
+within the words (including duplicates). 
 
- 
+You may return the answer in any order.
+
 
 Example 1:
 
@@ -15,12 +18,12 @@ Input: words = ["cool","lock","cook"]
 Output: ["c","o"]
 """
 class Solution:
-    def commonChars(self, words: List[str]) -> List[str]:
+    def commonChars(self, wordss: List[str]) -> List[str]:
         res = []
-        for i in words[0]:
-            if all(i in j for j in words):
-                res.append(i)
-                words = [j.replace(i, '', 1) for j in words]
+        for char in wordss[0]:
+            if all(char in word for word in wordss):
+                res.append(char)
+                wordss = [word.replace(char, '', 1) for word in wordss]
         return res
 
 
