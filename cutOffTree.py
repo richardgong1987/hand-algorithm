@@ -42,46 +42,42 @@ from typing import List
 
 class Solution:
     def cutOffTree(self, forest: List[List[int]]) -> int:
-        if not forest or not forest[0]:
+        n, m = len(forest), len(forest[0])
+        if n == 0 or m == 0:
             return 0
 
-        # Get the trees and sort them by height.
-        trees = [(height, row, col) for row, row_vals in enumerate(forest) for col, height in enumerate(row_vals) if
-                 height > 1]
-        heapq.heapify(trees)
+        tree_arr = [(height, i, j) for i, row in enumerate(forest) for j, height in enumerate(row) if height > 1]
+        heapq.heapify(tree_arr)
 
-        # BFS helper function to find the shortest path between two trees.
-        def bfs(sr, sc, tr, tc):
-            if (sr, sc) == (tr, tc):
-                return 0
+        def bfs(x1, y1, x2, y2) -> int:
+            visited = {(x1, y1)}
+            q = deque([(x1, y1, 0)])
 
-            visited = {(sr, sc)}
-            queue = deque([(sr, sc, 0)])
-            while queue:
-                r, c, steps = queue.popleft()
-                for dr, dc in ((1, 0), (-1, 0), (0, 1), (0, -1)):
-                    nr, nc = r + dr, c + dc
-                    if 0 <= nr < len(forest) and 0 <= nc < len(forest[0]) and (nr, nc) not in visited and forest[nr][nc]:
-                        if (nr, nc) == (tr, tc):
-                            return steps + 1
-                        visited.add((nr, nc))
-                        queue.append((nr, nc, steps + 1))
+            while q:
+                x3, y3, step = q.popleft()
+                if (x3, y3) == (x2, y2):
+                    return step
+
+                for x4, y4 in ((x3 - 1, y3), (x3 + 1, y3), (x3, y3 - 1), (x3, y3 + 1)):
+                    if 0 <= x4 < n and 0 <= y4 < m and (x4, y4) not in visited and forest[x4][y4]:
+                        q.append((x4, y4, step + 1))
+                        visited.add((x4, y4))
 
             return -1
 
-        # Traverse the trees in increasing order of height and find the shortest path between each pair of trees.
-        sr, sc = 0, 0
-        total_steps = 0
-        while trees:
-            _, tr, tc = heapq.heappop(trees)
-            steps = bfs(sr, sc, tr, tc)
-            if steps == -1:
+        x1, y1 = 0, 0
+        steps = 0
+        while tree_arr:
+            _, x2, y2 = heapq.heappop(tree_arr)
+
+            dist = bfs(x1, y1, x2, y2)
+            if dist == -1:
                 return -1
 
-            total_steps += steps
-            sr, sc = tr, tc
+            steps += dist
+            x1, y1 = x2, y2
 
-        return total_steps
+        return steps
 
 
 # print(Solution().cutOffTree([[1, 2, 3], [0, 0, 4], [7, 6, 5]]))
