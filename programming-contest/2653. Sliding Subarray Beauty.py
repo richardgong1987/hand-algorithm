@@ -42,27 +42,42 @@ from typing import List
 
 
 class Solution:
-    def getSubarrayBeauty(self, nums: List[int], k: int, x: int) -> List[int]:
-        sh = 50
-        count = [0] * (2 * sh + 1)
+    def getSubarrayBeauty(self, array: List[int], window: int, threshold: int) -> List[int]:
+        # Define the size of the frequency array
+        frequencyArraySize = 50
 
-        def f():
-            s = 0
-            for i in range(sh):
-                s += count[i]
-                if s >= x:
-                    return i - sh
+        # Initialize a frequency array with all elements as 0
+        frequency = [0] * (2 * frequencyArraySize + 1)
+
+        # Define a helper function to calculate the minimum element that meets the threshold
+        def calculateMinimumThreshold():
+            sumFrequency = 0
+            for index in range(frequencyArraySize):
+                sumFrequency += frequency[index]
+                if sumFrequency >= threshold:
+                    return index - frequencyArraySize
             return 0
 
-        res = []
-        for i in range(k):
-            count[nums[i] + sh] += 1
-        res.append(f())
-        for i in range(k, len(nums)):
-            count[nums[i] + sh] += 1
-            count[nums[i - k] + sh] -= 1
-            res.append(f())
-        return res
+        # Initialize an array to store the results
+        result = []
+
+        # Calculate the frequency for the first 'window' elements in the array
+        for index in range(window):
+            frequency[array[index] + frequencyArraySize] += 1
+
+        # Add the result of the helper function for the first 'window' elements to the result array
+        result.append(calculateMinimumThreshold())
+
+        # For the rest of the elements in the array, update the frequency array and add the result of the helper function to the result array
+        for index in range(window, len(array)):
+            # Add the frequency for the current element
+            frequency[array[index] + frequencyArraySize] += 1
+            # Subtract the frequency for the element 'window' steps back
+            frequency[array[index - window] + frequencyArraySize] -= 1
+            # Add the result of the helper function to the result array
+            result.append(calculateMinimumThreshold())
+
+        return result
 
 
 print(Solution().getSubarrayBeauty([1, -1, -3, -2, 3], 3, 2))
