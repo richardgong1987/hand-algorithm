@@ -1,4 +1,5 @@
 """
+    https://leetcode.com/problems/minimum-number-of-operations-to-make-all-array-elements-equal-to-1/
     2654. Minimum Number of Operations to Make All Array Elements Equal to 1
         You are given a 0-indexed array nums consisiting of positive integers. You can do the following operation on the array any number of times:
 

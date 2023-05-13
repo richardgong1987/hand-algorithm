@@ -1,4 +1,6 @@
 """
+    https://leetcode.com/problems/sliding-subarray-beauty/
+
     Sliding Subarray Beauty:
 
     Given an integer array nums containing n integers, find the beauty of each subarray of size k.
@@ -44,7 +46,7 @@ from typing import List
 class Solution:
     def getSubarrayBeauty(self, array: List[int], window: int, threshold: int) -> List[int]:
         # Define the size of the frequency array
-        frequencyArraySize = 50
+        frequencyArraySize = 5
 
         # Initialize a frequency array with all elements as 0
         frequency = [0] * (2 * frequencyArraySize + 1)
