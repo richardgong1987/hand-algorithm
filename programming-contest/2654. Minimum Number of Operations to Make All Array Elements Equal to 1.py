@@ -23,26 +23,39 @@
         Output: -1
         Explanation: It can be shown that it is impossible to make all the elements equal to 1.
 """
-from math import gcd
+
 from typing import List
+from math import gcd
 
 
 class Solution:
     def minOperations(self, nums: List[int]) -> int:
+        # Special case: if 1 is in the list, return the count of non-1 elements.
         if 1 in nums:
             return len(nums) - nums.count(1)
-        res = -1
-        for i in range(len(nums)):
-            for j in range(i, len(nums)):
-                d = nums[j]
-                for k in range(i, j):
-                    d = gcd(d, nums[k])
-                if d == 1:
-                    if res == -1 or j - i + 1 < res:
-                        res = j - i + 1
-        if res == -1:
+
+        # Initialize the minimum length to -1 (not found)
+        min_length = -1
+
+        # Outer loop: starting point of subarray
+        for start in range(len(nums)):
+            # Inner loop: ending point of subarray
+            for end in range(start, len(nums)):
+                # Find the gcd of the subarray from start to end
+                subarray_gcd = nums[end]
+                for k in range(start, end):
+                    subarray_gcd = gcd(subarray_gcd, nums[k])
+                # If the gcd is 1, update the minimum length if necessary
+                if subarray_gcd == 1:
+                    if min_length == -1 or end - start + 1 < min_length:
+                        min_length = end - start + 1
+
+        # If no subarray with gcd 1 is found, return -1
+        if min_length == -1:
             return -1
-        return len(nums) + res - 2
+
+        # Otherwise, return the number of operations needed
+        return len(nums) + min_length - 2
 
 
 # Example 1
