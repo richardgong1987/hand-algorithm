@@ -83,3 +83,51 @@ class Solution:
 
 
 print(Solution().getSubarrayBeauty([1, -1, -3, -2, 3], 3, 2))
+
+
+""" typescript
+
+function getSubarrayBeauty(nums: number[], k: number, x: number): number[] {
+    // 基数排序
+    let radix = 50
+    
+    let stores = new Array(radix * 2 + 1).fill(0)
+    
+    
+    let result = []
+    for (let i = 0;i<k;i++){
+        stores[nums[i] + radix]++
+    }
+    
+    
+    result.push(getsmallest(stores, x))
+    
+    
+    for(let i = k; i<nums.length; i++){
+        stores[nums[i]+radix]++
+        stores[nums[i-k]+radix]--
+        
+        
+        result.push(getsmallest(stores, x))
+    }
+    
+    
+    return result
+    
+};
+
+
+function getsmallest(stores:number[], x:number){
+    let total = 0
+    for (let i = 0; i <= 50;i++ ){
+        total +=stores[i]
+        if (total>=x){
+            return i - 50
+        }
+    }
+    
+    return 0
+    
+}
+
+"""
