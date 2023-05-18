@@ -1,6 +1,6 @@
 """
 
-    https://leetcode.com/contest/biweekly-contest-104/problems/power-of-heroes/
+    https://leetcode.com/problems/power-of-heroes/
 
     6423. Power of Heroes
 
@@ -40,26 +40,16 @@ Constraints:
 """
 from typing import List
 
-
+"""
+https://leetcode.com/problems/power-of-heroes/discuss/3520202/C%2B%2B-Java-Python3-Explanation-and-Stepping-through-the-code
+"""
 class Solution:
     def sumOfPower(self, nums: List[int]) -> int:
-        MODULO = 10 ** 9 + 7  # The number used for the modulo operation
-        total_sum = 0  # The accumulated sum of powers
+        mod, pre, res = 10 ** 9 + 7, 0, 0
+        for x in sorted(nums):
+            res = (res + x * x * x + x * x * pre) % mod
+            pre = (pre * 2 + x) % mod
+        return res
 
-        nums.sort()  # Sort the input numbers for proper power calculation
 
-        power_accumulator = 0  # Accumulates powers of numbers
-        for num in nums:
-            squared_num = num * num  # Calculate the square of the number
-
-            # Calculate the sum of powers, modulo applied to prevent overflow
-            total_sum += (squared_num * power_accumulator) % MODULO
-            total_sum += (squared_num * num) % MODULO
-
-            # Update the power accumulator
-            power_accumulator *= 2
-            power_accumulator += num
-            power_accumulator %= MODULO
-
-        # Return the final sum of powers, modulo applied to prevent overflow
-        return total_sum % MODULO
+print(Solution().sumOfPower([2, 1, 4]))
