@@ -1,6 +1,6 @@
 """
 
-    https://leetcode.com/contest/biweekly-contest-104/problems/maximum-or/
+    https://leetcode.com/problems/maximum-or/
 
     6369. Maximum OR
 
@@ -32,36 +32,38 @@
 """
 from typing import List
 
+"""
+https://leetcode.com/problems/maximum-or/discuss/3521223/C%2B%2B-Java-Python-Intuition-with-Explanation-or-Proof-of-Why-or-Time%3A-O(n)
+"""
+
 
 class Solution:
     def maximumOr(self, nums: List[int], k: int) -> int:
-        # These variables will hold the bitwise OR of all numbers (single),
-        # and the OR of all numbers that are present more than once (double)
-        single = 0
-        double = 0
+        n = len(nums)
+        prefix = [0] * n
+        suffix = [0] * n
 
-        # For each number in the array
-        for num in nums:
-            # Calculate the OR of all numbers that are present more than once
-            double |= num & single
-            # Calculate the OR of all numbers
-            single |= num
+        for i in range(1, n):
+            prefix[i] = prefix[i - 1] | nums[i - 1]
+            suffix[n - i - 1] = suffix[n - i] | nums[n - i]
 
-        # This variable will hold the maximum OR value seen so far
-        max_possible = 0
+        result = 0
+        for i in range(n):
+            result = max(result, prefix[i] | (nums[i] << k) | suffix[i])
 
-        # For each number in the array
-        for num in nums:
-            # Calculate the OR if we remove the current number
-            removed_num = single & ~num
-            # Add the OR of all numbers that are present more than once
-            removed_num |= double
-            # Add the current number shifted left by k places
-            removed_num |= num << k
-            # Update the maximum OR value seen so far
-            max_possible = max(max_possible, removed_num)
+        return result
 
-        return max_possible
 
-print(Solution().maximumOr([12, 9], 1))  # Output: 30
+# print(Solution().maximumOr([12, 9], 1))  # Output: 30
 print(Solution().maximumOr([8, 1, 2], 2))  # Output: 35
+
+"""
+Take this array
+
+ 5 - 000000000101
+ 6 - 000000000110
+ 9 - 000000001001
+20 - 000000010100
+23 - 000000010111
+
+"""
