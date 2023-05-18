@@ -40,21 +40,22 @@ https://leetcode.com/problems/maximum-or/discuss/3521223/C%2B%2B-Java-Python-Int
 class Solution:
     def maximumOr(self, nums: List[int], k: int) -> int:
         n = len(nums)
+
         prefix = [0] * n
-        suffix = [0] * n
+        suffix = prefix[:]
 
         for i in range(1, n):
             prefix[i] = prefix[i - 1] | nums[i - 1]
-            suffix[n - i - 1] = suffix[n - i] | nums[n - i]
+            suffix[n - 1 - i] = suffix[n - i] | nums[n - i]
 
-        result = 0
+        maximum_bitwise_or = 0
         for i in range(n):
-            result = max(result, prefix[i] | (nums[i] << k) | suffix[i])
+            maximum_bitwise_or = max(maximum_bitwise_or, prefix[i] | nums[i] << k | suffix[i])
 
-        return result
+        return maximum_bitwise_or
 
 
-# print(Solution().maximumOr([12, 9], 1))  # Output: 30
+print(Solution().maximumOr([12, 9], 1))  # Output: 30
 print(Solution().maximumOr([8, 1, 2], 2))  # Output: 35
 
 """
