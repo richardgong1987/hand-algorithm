@@ -41,15 +41,17 @@ Constraints:
 from typing import List
 
 """
-https://leetcode.com/problems/power-of-heroes/discuss/3520202/C%2B%2B-Java-Python3-Explanation-and-Stepping-through-the-code
+https://leetcode.com/problems/power-of-heroes/discuss/3520233/C%2B%2BorJavaorPythonSort-and-enumerate-each-maximum-value
 """
+
+
 class Solution:
     def sumOfPower(self, nums: List[int]) -> int:
-        mod, pre, res = 10 ** 9 + 7, 0, 0
-        for x in sorted(nums):
-            res = (res + x * x * x + x * x * pre) % mod
-            pre = (pre * 2 + x) % mod
-        return res
+        ans, t, base = 0, 0, 10 ** 9 + 7
+        for c in sorted(nums):
+            ans = (ans + (t + c) * c * c) % base
+            t = (2 * t + c) % base
+        return ans
 
 
 print(Solution().sumOfPower([2, 1, 4]))
