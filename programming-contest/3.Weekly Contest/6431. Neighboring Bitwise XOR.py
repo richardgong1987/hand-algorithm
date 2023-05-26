@@ -1,5 +1,5 @@
 """
-https://leetcode.com/contest/weekly-contest-345/problems/neighboring-bitwise-xor/
+https://leetcode.com/problems/neighboring-bitwise-xor/
 
 6431. Neighboring Bitwise XOR
 
@@ -42,7 +42,7 @@ Explanation: There is no valid original array that gives derived.
 Constraints:
 
 n == derived.length
-1 <= n <= 105
+1 <= n <= 100000
 The values in derived are either 0's or 1's
 
 

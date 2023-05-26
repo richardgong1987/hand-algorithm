@@ -1,5 +1,5 @@
 """
-https://leetcode.com/contest/weekly-contest-345/problems/count-the-number-of-complete-components/
+https://leetcode.com/problems/count-the-number-of-complete-components/
 
 6432. Count the Number of Complete Components
 

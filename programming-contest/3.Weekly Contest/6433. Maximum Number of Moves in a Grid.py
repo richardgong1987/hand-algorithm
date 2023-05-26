@@ -1,5 +1,5 @@
 """
-https://leetcode.com/contest/weekly-contest-345/problems/maximum-number-of-moves-in-a-grid/
+https://leetcode.com/problems/maximum-number-of-moves-in-a-grid/
 
 6433. Maximum Number of Moves in a Grid
 
