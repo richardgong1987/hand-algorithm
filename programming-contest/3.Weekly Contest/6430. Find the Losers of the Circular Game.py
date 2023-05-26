@@ -1,5 +1,5 @@
 """
-https://leetcode.com/contest/weekly-contest-345/problems/find-the-losers-of-the-circular-game/
+https://leetcode.com/problems/find-the-losers-of-the-circular-game/
 
 6430. Find the Losers of the Circular Game
 
@@ -45,16 +45,15 @@ Constraints:
 """
 from typing import List
 
-
 class Solution:
     def circularGameLosers(self, n: int, k: int) -> List[int]:
-        received = [False] * (n + 1)
-        curr = 1
-        i = 1
+        receivedCounts = [False] * (n + 1)
+        currentBallPosition = 1
+        step = 1
 
-        while not received[curr]:
-            received[curr] = True
-            curr = ((curr + i * k - 1) % n) + 1
-            i += 1
+        while not receivedCounts[currentBallPosition]:
+            receivedCounts[currentBallPosition] = True
+            currentBallPosition = ((currentBallPosition + step * k - 1) % n) + 1
+            step += 1
 
-        return [i for i in range(1, n + 1) if not received[i]]
+        return [i for i in range(1, n + 1) if not receivedCounts[i]]
