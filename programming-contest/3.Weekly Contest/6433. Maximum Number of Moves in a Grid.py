@@ -43,17 +43,18 @@ from typing import List
 
 class Solution:
     def maxMoves(self, grid: List[List[int]]) -> int:
-        m, n = len(grid), len(grid[0])
+        row_len, col_len = len(grid), len(grid[0])
 
-        dp = [[0] * n for _ in range(m)]
+        dp = [[0] * col_len for _ in range(row_len)]
 
-        for j in range(n - 2, -1, -1):
-            for i in range(m):
-                for dx in [-1, 0, 1]:
-                    if 0 <= i + dx < m and grid[i][j] < grid[i + dx][j + 1]:
-                        dp[i][j] = max(dp[i][j], 1 + dp[i + dx][j + 1])
+        for col in range(col_len - 2, -1, -1):
+            for row in range(row_len):
+                for direct in [-1, 0, 1]:
+                    nxt_row = direct + row
+                    if 0 <= direct + row < row_len and grid[row][col] < grid[nxt_row][col + 1]:
+                        dp[row][col] = max(dp[row][col], 1 + dp[nxt_row][col + 1])
 
-        return max(dp[i][0] for i in range(m))
+        return max(dp[row][0] for row in range(row_len))
 
 
-print(Solution().maxMoves([[3, 2, 4], [2, 1, 9], [1, 1, 7]]))
+print(Solution().maxMoves(grid=[[2, 4, 3, 5], [5, 4, 9, 3], [3, 4, 2, 11], [10, 9, 13, 15]]))
